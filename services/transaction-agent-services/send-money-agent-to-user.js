@@ -26,7 +26,7 @@ const sendMoneyAgentToUser = async (req, res, next) => {
       res.status(400).json({ message: "User not found" });
     }
 
-    // Check if agent has enough balance to transfer
+    // check user balance is sufficient
     if (agent.balance < amount) {
       res.status(400).json({ message: "Agent has insufficient balance" });
     }
@@ -36,13 +36,13 @@ const sendMoneyAgentToUser = async (req, res, next) => {
     user.balance += amount;
     
     const transaction = await Transaction.create({
-        transactionId: new Date().getTime().toString(), // Unique transaction ID
+        transactionId: new Date().getTime().toString(), 
         sender: agent.mobile_number,
         receiver: receiverPhone,
         amount,
         transactionType: "send_money",
       });
-    // Create a new transaction
+    
    
     await transaction.save();
     agent.transactions.unshift(transaction._id);

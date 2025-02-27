@@ -39,8 +39,8 @@ const cashOut = async (req, res, next) => {
     console.log(agentIncome);
     // Update Balances
     user.balance -= totalDeduction;
-    agent.balance += amount + agentIncome; // Agent gets the withdrawn amount
-    admin.balance += adminIncome; // Admin gets 0.5% fee
+    agent.balance += amount + agentIncome;
+    admin.balance += adminIncome; 
 
     // Create Transaction Record
     const transaction = await Transaction.create({
@@ -53,8 +53,8 @@ const cashOut = async (req, res, next) => {
     });
 
     // Store Transaction IDs in User, Agent, and Admin
-    user.transactions.push(transaction._id);
-    agent.transactions.push(transaction._id);
+    user.transactions.unshift(transaction._id);
+    agent.transactions.unshift(transaction._id);
 
     // Save Updates
     await user.save();
