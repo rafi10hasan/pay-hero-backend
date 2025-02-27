@@ -13,7 +13,6 @@ const sendMoneyUserToUser = async (req, res, next) => {
     const sender = await User.findOne({mobile_number:senderPhone});
     const receiver = await User.findOne({ mobile_number: receiverPhone });
     const admin = await User.findOne({ role: "admin" });
-    console.log(admin)
     
     if (!sender) {
         res.status(400).json({ message: "User not found" });

@@ -1,6 +1,6 @@
 const User = require("../../models/user-model");
 const Transaction = require("../../models/transaction-model");
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcryptjs");
 
 const cashOut = async (req, res, next) => {
   try {
@@ -13,18 +13,18 @@ const cashOut = async (req, res, next) => {
     const user = await User.findOne({ mobile_number: senderPhone, role: "user" });
     const agent = await User.findOne({ mobile_number: agentNumber, role: "agent" });
     const admin = await User.findOne({ role: "admin" });
-     
-    console.log(user)
+
+    console.log(user);
     if (!user) {
       res.status(400).json({ message: "User not found" });
     }
     if (!agent) {
       res.status(400).json({ message: "agent not found" });
     }
-      const isMatch = await bcrypt.compare(pin_number, user.pin_number);
-      if (!isMatch) {
-        res.status(400).json({ message: "pin not match", match: false });
-      } 
+    const isMatch = await bcrypt.compare(pin_number, user.pin_number);
+    if (!isMatch) {
+      res.status(400).json({ message: "pin not match", match: false });
+    }
 
     // Calculate Fees
     const fee = amount * 0.015; // 1.5% of withdrawal amount
@@ -36,7 +36,7 @@ const cashOut = async (req, res, next) => {
     if (user.balance < totalDeduction) {
       res.status(400).json({ message: "Insufficient balance" });
     }
-   console.log(agentIncome)
+    console.log(agentIncome);
     // Update Balances
     user.balance -= totalDeduction;
     agent.balance += amount + agentIncome; // Agent gets the withdrawn amount
