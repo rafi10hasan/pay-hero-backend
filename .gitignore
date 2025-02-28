@@ -64,21 +64,7 @@ Thumbs.db
 # Optional REPL history
 .node_repl_history
 
-# Miscellaneous
-*.tgz
-*.bak
-*.swp
 
-# Docker files (if applicable)
-docker-compose.override.yml
 
-# Binaries
-*.exe
-*.dll
-*.so
-*.dylib
-*.py[cod]
 
-# Editor files
-*.sublime-project
-*.sublime-workspace
+
