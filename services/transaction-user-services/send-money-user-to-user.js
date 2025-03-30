@@ -1,5 +1,6 @@
 const User = require("../../models/user-model");
 const Transaction = require("../../models/transaction-model");
+const { generateTxnId } = require("../../utils/generate-transactionId");
 
 const sendMoneyUserToUser = async (req, res, next) => {
   try {
@@ -37,7 +38,7 @@ const sendMoneyUserToUser = async (req, res, next) => {
 
     // Create transaction
     const transaction = await Transaction.create({
-      transactionId: new Date().getTime().toString(), 
+      transactionId: generateTxnId(), 
       sender: senderPhone,
       receiver: receiverPhone,
       amount,

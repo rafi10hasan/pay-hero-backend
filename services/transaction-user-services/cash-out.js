@@ -1,6 +1,7 @@
 const User = require("../../models/user-model");
 const Transaction = require("../../models/transaction-model");
 const bcrypt = require("bcryptjs");
+const { generateTxnId } = require("../../utils/generate-transactionId");
 
 const cashOut = async (req, res, next) => {
   try {
@@ -44,7 +45,7 @@ const cashOut = async (req, res, next) => {
 
     // Create Transaction Record
     const transaction = await Transaction.create({
-      transactionId: new Date().getTime().toString(),
+      transactionId: generateTxnId(),
       sender: senderPhone,
       receiver: agentNumber,
       amount,

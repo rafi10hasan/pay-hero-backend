@@ -13,11 +13,16 @@ const getOverview = async (req, res) => {
 
     // admin income
     const admin = await User.findOne({role:"admin"});
-    const adminIncome = admin.balance
-
+    const adminIncome = admin.balance.toLocaleString("en-BD", {
+      currency: "BDT",
+    })
+    
+    const formattedBDT = totalMoneyInSystem[0]?.totalBalance.toLocaleString("en-BD", {
+      currency: "BDT",
+    });
 
     res.json({
-      balance: totalMoneyInSystem[0]?.totalBalance || 0,
+      balance:  formattedBDT || 0,
       totalUsers,
       adminIncome: adminIncome
     });

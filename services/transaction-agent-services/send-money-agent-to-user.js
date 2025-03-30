@@ -2,6 +2,7 @@ const { mongoose } = require("mongoose");
 
 const Transaction = require("../../models/transaction-model");
 const User = require("../../models/user-model");
+const { generateTxnId } = require("../../utils/generate-transactionId");
 
 
 const sendMoneyAgentToUser = async (req, res, next) => {
@@ -36,7 +37,7 @@ const sendMoneyAgentToUser = async (req, res, next) => {
     user.balance += amount;
     
     const transaction = await Transaction.create({
-        transactionId: new Date().getTime().toString(), 
+        transactionId: generateTxnId(), 
         sender: agent.mobile_number,
         receiver: receiverPhone,
         amount,

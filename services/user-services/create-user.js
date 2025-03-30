@@ -1,4 +1,3 @@
-
 const User = require("../../models/user-model");
 const bcrypt = require("bcryptjs");
 
@@ -18,23 +17,17 @@ const createUser = async (user) => {
       mobile_number,
       nid_number,
       role: role || "user",
-      isVerified: role === "agent" ? false : true
     });
 
-    console.log("✅ User created successfully:", newUser);
-
-    // ✅ Verify newUser ID
     if (!newUser._id) {
       throw new Error("User creation failed, ID not generated");
     }
 
-    // ✅ Check if Balance Exists
-    let balanceAmount = newUser.role === "agent" ? 100000 : 40;
+    let balanceAmount = newUser.role === "agent" ? 100000 : 200;
     newUser.balance = balanceAmount;
     await newUser.save();
     return newUser;
   } catch (err) {
-  
     throw new Error(`Unexpected error in user service: ${err.message}`);
   }
 };
