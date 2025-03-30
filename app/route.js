@@ -5,7 +5,7 @@ router.get('/health',(_req,res)=>{
 })
 
 router.get("/", (_req, res) => {
-    res.send("Welcome to pay Hero API server");
+    res.send("Welcome to Dkash API server");
   });
 
 module.exports = router
